@@ -12,4 +12,26 @@ RSpec.describe Enigma do
       expect(@enigma).to be_an_instance_of(Enigma)
     end
   end
+
+  describe 'Object Methods' do
+    xit 'can encrypt a message' do
+      actual   = @enigma.encrypt("hello world", "02715", "040895")
+      expected = {
+        encryption: "keder ohulw",
+        key:        "02715",
+        date:       "040895"
+      }
+      expect(actual).to eq(expected)
+    end
+
+    xit 'can decrypt a message' do
+      actual   = @enigma.decrypt("keder ohulw", "02715", "040895")
+      expected = {
+        decryption: "hello world",
+        key:        "02715",
+        date:       "040895"
+      }
+      expect(actual).to eq(expected)
+    end
+  end
 end
