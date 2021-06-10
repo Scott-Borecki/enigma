@@ -3,7 +3,7 @@ class Enigma
   def initialize
   end
 
-  def encrypt(message, key, date)
+  def encrypt(message, key, date = Time.now.strftime("%d%m%y"))
   end
 
   def decrypt(ciphertext, key, date)
