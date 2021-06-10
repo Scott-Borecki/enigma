@@ -5,7 +5,7 @@ encrypted_message = encrypted.read
 encrypted.close
 
 enigma            = Enigma.new
-date              = ARGV[2] || Time.now.strftime("%d%m%y")
+date              = ARGV[2] || enigma.today
 key               = enigma.crack(encrypted_message, date)[:key]
 decrypted_message = enigma.crack(encrypted_message, date)[:decryption]
 

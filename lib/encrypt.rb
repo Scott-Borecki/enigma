@@ -6,7 +6,7 @@ handle.close
 
 enigma            = Enigma.new
 key               = enigma.generate_key # perhaps this will be abstracted from a different class?
-date              = ARGV[2] || Time.now.strftime("%d%m%y")
+date              = ARGV[2] || enigma.today
 encrypted_message = enigma.encrypt(message, key, date)[:encryption]
 
 encrypted = File.open(ARGV[1], "w")

@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './lib/enigma'
 require 'date'
 require 'simplecov'
@@ -6,7 +7,6 @@ SimpleCov.start
 RSpec.describe Enigma do
   before :each do
     @enigma = Enigma.new
-    @today  = Time.now.strftime("%d%m%y")
   end
 
   describe 'Object Creation' do
@@ -31,7 +31,7 @@ RSpec.describe Enigma do
       expected = {
         encryption: "keder ohulw",
         key:        "02715",
-        date:       @today
+        date:       today
       }
       expect(actual).to eq(expected)
     end
@@ -73,7 +73,7 @@ RSpec.describe Enigma do
     end
 
     xit 'can crack a message with today\'s date' do
-      actual   = @enigma.encrypt("hello world end", "08304", @today)
+      actual   = @enigma.encrypt("hello world end", "08304", today)
       expected = {
         encryption: "vjqtbeaweqihssi",
         key:        "08304",
@@ -84,7 +84,7 @@ RSpec.describe Enigma do
       actual   = @enigma.crack("vjqtbeaweqihssi")
       expected = {
         decryption: "hello world end",
-        date:       @today,
+        date:       today,
         key:        "08304"
       }
       expect(actual).to eq(expected)
