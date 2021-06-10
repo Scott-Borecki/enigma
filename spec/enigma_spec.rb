@@ -1,4 +1,5 @@
 require './lib/enigma'
+require 'date'
 require 'simplecov'
 SimpleCov.start
 
@@ -38,6 +39,43 @@ RSpec.describe Enigma do
         decryption: "hello world",
         key:        "02715",
         date:       "040895"
+      }
+      expect(actual).to eq(expected)
+    end
+
+    xit 'can crack a message with a date' do
+      actual   = @enigma.encrypt("hello world end", "08304", "291018")
+      expected = {
+          encryption: "vjqtbeaweqihssi",
+          key:  "08304",
+          date: "291018"
+        }
+      expect(actual).to eq(expected)
+
+      actual   = @enigma.crack("keder ohulw", "02715", "040895")
+      expected = {
+        decryption: "hello world",
+        key:        "02715",
+        date:       "040895"
+      }
+      expect(actual).to eq(expected)
+    end
+
+    xit 'can crack a message with today\'s date' do
+      actual   = @enigma.encrypt("hello world end", "08304",
+                 Time.now.strftime("%d%m%y"))
+      expected = {
+          encryption: "vjqtbeaweqihssi",
+          key:        "08304",
+          date:       "291018"
+        }
+      expect(actual).to eq(expected)
+
+      actual   = @enigma.crack("vjqtbeaweqihssi")
+      expected = {
+        decryption: "hello world end",
+        date:       Time.now.strftime("%d%m%y"),
+        key:        "#####" # key used for encryption
       }
       expect(actual).to eq(expected)
     end
