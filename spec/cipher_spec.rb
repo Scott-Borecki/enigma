@@ -47,16 +47,36 @@ RSpec.describe Cipher do
       expect(actual).to eq(expected)
     end
 
-    it 'can generate a shift (encryption) pcipher' do
+    it 'can generate a shift (encryption) cipher' do
       actual   = @cipher.shift('a', 0)
       expected = 'd'
       expect(actual).to eq(expected)
+    end
+
+    it 'can return a shifted letter' do
+      actual   = @cipher.shift_new_letter('$', 3)
+      expected = '$'
+      expect(actual).to eq(expected)
+
+      allow(@cipher).to receive(:shift).and_return(true)
+      actual   = @cipher.shift_new_letter('d', 3)
+      expect(actual).to be true
     end
 
     it 'can generate a unshift (decryption) cipher' do
       actual   = @cipher.unshift('a', 0)
       expected = 'y'
       expect(actual).to eq(expected)
+    end
+
+    it 'can return an unshifted letter' do
+      actual   = @cipher.unshift_new_letter('$', 3)
+      expected = '$'
+      expect(actual).to eq(expected)
+
+      allow(@cipher).to receive(:unshift).and_return(true)
+      actual   = @cipher.unshift_new_letter('d', 3)
+      expect(actual).to be true
     end
   end
 end
