@@ -8,14 +8,6 @@ require_relative '../lib/offset'
 SimpleCov.start
 
 RSpec.describe Cipher do
-  describe 'Class Methods' do
-    # it 'can generate the offsets' do
-    #   actual   = Offset.generate('040895')
-    #   expected = [1, 0, 2, 5]
-    #   expect(actual).to eq(expected)
-    # end
-  end
-
   describe 'Object Creation' do
     before :each do
       @cipher = Cipher.new('hello world', '02715', '040895')
@@ -33,8 +25,7 @@ RSpec.describe Cipher do
       key      = [2, 27, 71, 15]
       date     = '040895'
       offset   = [1, 0, 2, 5]
-      expect(@cipher.alphabet).to be_a(Array)
-      expect(@cipher.alphabet.length).to eq(27)
+      
       expect(@cipher.alphabet).to eq(alphabet)
       expect(@cipher.message).to eq(message)
       expect(@cipher.key).to eq(key)
@@ -57,6 +48,26 @@ RSpec.describe Cipher do
     it 'can generate the shift' do
       actual   = @cipher.generate_shift
       expected = { A: 3, B: 27, C: 73, D: 20 }
+      expect(actual).to eq(expected)
+    end
+
+    it 'can generate a shift (encryption) pcipher' do
+      actual   = @cipher.shift(:A)
+      expected = {'a'=>'d', 'b'=>'e', 'c'=>'f', 'd'=>'g', 'e'=>'h', 'f'=>'i',
+                  'g'=>'j', 'h'=>'k', 'i'=>'l', 'j'=>'m', 'k'=>'n', 'l'=>'o',
+                  'm'=>'p', 'n'=>'q', 'o'=>'r', 'p'=>'s', 'q'=>'t', 'r'=>'u',
+                  's'=>'v', 't'=>'w', 'u'=>'x', 'v'=>'y', 'w'=>'z', 'x'=>' ',
+                  'y'=>'a', 'z'=>'b', ' '=>'c'}
+      expect(actual).to eq(expected)
+    end
+
+    it 'can generate a unshift (decryption) cipher' do
+      actual   = @cipher.unshift(:A)
+      expected = {'a'=>'y', 'b'=>'z', 'c'=>' ', 'd'=>'a', 'e'=>'b', 'f'=>'c',
+                  'g'=>'d', 'h'=>'e', 'i'=>'f', 'j'=>'g', 'k'=>'h', 'l'=>'i',
+                  'm'=>'j', 'n'=>'k', 'o'=>'l', 'p'=>'m', 'q'=>'n', 'r'=>'o',
+                  's'=>'p', 't'=>'q', 'u'=>'r', 'v'=>'s', 'w'=>'t', 'x'=>'u',
+                  'y'=>'v', 'z'=>'w', ' '=>'x'}
       expect(actual).to eq(expected)
     end
   end
