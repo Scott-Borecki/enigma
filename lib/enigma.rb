@@ -3,38 +3,24 @@ class Enigma
   include Dateable
 
   def encrypt(message, key, date = today)
-    # HACK: This code needs to be refactored.  Abstract symbol and modulo.
-    cipher = Cipher.new(key, date)
-    encrypted_message = ''
+    cipher = Cipher.new(date, key)
+    encrypted = ''
     message.chars.each_with_index do |letter, index|
-      encrypted_message << letter unless alphabet.include?(letter)
-      encrypted_message << cipher.shift(:A)[letter] if (index % 4).zero?
-      encrypted_message << cipher.shift(:B)[letter] if index % 4 == 1
-      encrypted_message << cipher.shift(:C)[letter] if index % 4 == 2
-      encrypted_message << cipher.shift(:D)[letter] if index % 4 == 3
+      encrypted << cipher.shift_new_letter(letter, index)
     end
-    { encryption: encrypted_message,
-      key:        key,
-      date:       date }
+    { encryption: encrypted, key: key, date: date }
   end
 
   def decrypt(ciphertext, key, date)
-    # HACK: This code needs to be refactored.  Abstract symbol and modulo.
-    cipher = Cipher.new(key, date)
-    decrypted_message = ''
+    cipher = Cipher.new(date, key)
+    decrypted = ''
     ciphertext.chars.each_with_index do |letter, index|
-      decrypted_message << letter unless alphabet.include?(letter)
-      decrypted_message << cipher.unshift(:A)[letter] if (index % 4).zero?
-      decrypted_message << cipher.unshift(:B)[letter] if index % 4 == 1
-      decrypted_message << cipher.unshift(:C)[letter] if index % 4 == 2
-      decrypted_message << cipher.unshift(:D)[letter] if index % 4 == 3
+      decrypted << cipher.unshift_new_letter(letter, index)
     end
-    { decryption: decrypted_message,
-      key:        key,
-      date:       date }
+    { decryption: decrypted, key: key, date: date }
   end
 
-  def crack(ciphertext, date = today)
-    # TODO
-  end
+  # def crack(ciphertext, date = today)
+  #   # TODO
+  # end
 end

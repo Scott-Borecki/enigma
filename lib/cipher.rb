@@ -1,29 +1,37 @@
 class Cipher
   include Alphabetable
 
-  attr_reader :key,
+  attr_reader :keys,
               :date,
               :offset
 
-  def initialize(key, date)
-    @key      = Key.generate(key)
+  def initialize(date, key)
+    @keys     = Key.generate(key)
     @date     = date
     @offset   = Offset.generate(@date)
   end
 
-  def symbols
-    %i[A B C D]
+  def positions
+    [0, 1, 2, 3]
   end
 
-  def generate_shift
-    symbols.zip(@key.zip(@offset).map(&:sum)).to_h
+  def shift_lookup
+    @shift_lookup ||= positions.zip(@keys.zip(@offset).map(&:sum)).to_h
   end
 
-  def shift(symbol)
-    alphabet.zip(alphabet.rotate(generate_shift[symbol])).to_h
+  def shift(letter, index)
+    alphabet.zip(alphabet.rotate(shift_lookup[index % 4])).to_h[letter]
   end
 
-  def unshift(symbol)
-    alphabet.zip(alphabet.rotate(generate_shift[symbol] * -1)).to_h
+  def shift_new_letter(letter, index)
+    alphabet.include?(letter) ? shift(letter, index) : letter
+  end
+
+  def unshift(letter, index)
+    alphabet.zip(alphabet.rotate(shift_lookup[index % 4] * -1)).to_h[letter]
+  end
+
+  def unshift_new_letter(letter, index)
+    alphabet.include?(letter) ? unshift(letter, index) : letter
   end
 end

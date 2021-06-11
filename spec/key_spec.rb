@@ -12,13 +12,6 @@ RSpec.describe Key do
       expected = [2, 27, 71, 15]
       expect(actual).to eq(expected)
     end
-
-    it 'can generate the key without a given key' do
-      actual = Key.generate
-      expect(actual).to be_a(Array)
-      expect(actual.length).to eq(4)
-      expect(actual.find_all { |key| key.is_a?(Integer) }.length).to eq(4)
-    end
   end
 
   describe 'Object Creation' do

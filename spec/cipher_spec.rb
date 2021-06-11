@@ -9,7 +9,7 @@ SimpleCov.start
 
 RSpec.describe Cipher do
   before :each do
-    @cipher = Cipher.new('02715', '040895')
+    @cipher = Cipher.new('040895', '02715')
   end
 
   describe 'Object Creation' do
@@ -18,10 +18,10 @@ RSpec.describe Cipher do
     end
 
     it 'has readable attributes' do
-      key    = [2, 27, 71, 15]
+      keys   = [2, 27, 71, 15]
       date   = '040895'
       offset = [1, 0, 2, 5]
-      expect(@cipher.key).to eq(key)
+      expect(@cipher.keys).to eq(keys)
       expect(@cipher.date).to eq(date)
       expect(@cipher.offset).to eq(offset)
     end
@@ -35,38 +35,48 @@ RSpec.describe Cipher do
       expect(@cipher.alphabet).to eq(alphabet)
     end
 
-    it 'can generate symbols' do
-      actual   = @cipher.symbols
-      expected = %i[A B C D]
+    it 'can generate positions' do
+      actual   = @cipher.positions
+      expected = [0, 1, 2, 3]
       expect(actual).to eq(expected)
     end
 
-    it 'can generate the shift' do
-      actual   = @cipher.generate_shift
-      expected = { A: 3, B: 27, C: 73, D: 20 }
+    it 'can generate the shift lookup hash' do
+      actual   = @cipher.shift_lookup
+      expected = { 0 => 3, 1 => 27, 2 => 73, 3 => 20 }
       expect(actual).to eq(expected)
     end
 
-    it 'can generate a shift (encryption) pcipher' do
-      actual   = @cipher.shift(:A)
-      expected = { 'a' => 'd', 'b' => 'e', 'c' => 'f', 'd' => 'g', 'e' => 'h',
-                   'f' => 'i', 'g' => 'j', 'h' => 'k', 'i' => 'l', 'j' => 'm',
-                   'k' => 'n', 'l' => 'o', 'm' => 'p', 'n' => 'q', 'o' => 'r',
-                   'p' => 's', 'q' => 't', 'r' => 'u', 's' => 'v', 't' => 'w',
-                   'u' => 'x', 'v' => 'y', 'w' => 'z', 'x' => ' ', 'y' => 'a',
-                   'z' => 'b', ' ' => 'c' }
+    it 'can generate a shift (encryption) cipher' do
+      actual   = @cipher.shift('a', 0)
+      expected = 'd'
       expect(actual).to eq(expected)
+    end
+
+    it 'can return a shifted letter' do
+      actual   = @cipher.shift_new_letter('$', 3)
+      expected = '$'
+      expect(actual).to eq(expected)
+
+      allow(@cipher).to receive(:shift).and_return(true)
+      actual = @cipher.shift_new_letter('d', 3)
+      expect(actual).to be true
     end
 
     it 'can generate a unshift (decryption) cipher' do
-      actual   = @cipher.unshift(:A)
-      expected = { 'a' => 'y', 'b' => 'z', 'c' => ' ', 'd' => 'a', 'e' => 'b',
-                   'f' => 'c', 'g' => 'd', 'h' => 'e', 'i' => 'f', 'j' => 'g',
-                   'k' => 'h', 'l' => 'i', 'm' => 'j', 'n' => 'k', 'o' => 'l',
-                   'p' => 'm', 'q' => 'n', 'r' => 'o', 's' => 'p', 't' => 'q',
-                   'u' => 'r', 'v' => 's', 'w' => 't', 'x' => 'u', 'y' => 'v',
-                   'z' => 'w', ' ' => 'x' }
+      actual   = @cipher.unshift('a', 0)
+      expected = 'y'
       expect(actual).to eq(expected)
+    end
+
+    it 'can return an unshifted letter' do
+      actual   = @cipher.unshift_new_letter('$', 3)
+      expected = '$'
+      expect(actual).to eq(expected)
+
+      allow(@cipher).to receive(:unshift).and_return(true)
+      actual = @cipher.unshift_new_letter('d', 3)
+      expect(actual).to be true
     end
   end
 end
