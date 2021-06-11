@@ -1,11 +1,11 @@
 require './lib/enigma'
 
 handle  = File.open(ARGV[0], "r")
-message = handle.read
+message = handle.read.downcase
 handle.close
 
 enigma            = Enigma.new
-key               = enigma.generate_key # perhaps this will be abstracted from a different class?
+key               = enigma.keys # perhaps this will be abstracted from a different class?
 date              = ARGV[2] || enigma.today
 encrypted_message = enigma.encrypt(message, key, date)[:encryption]
 
