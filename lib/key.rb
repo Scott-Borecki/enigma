@@ -1,4 +1,6 @@
 class Key
+  # TODO: Allow Key object to store key so it can return it later.
+  #       Maybe have self.generate make a 5 digit string and then transform?
   def self.generate(key = Array.new(5) { rand(0..9) })
     # TODO: This code needs to be refactored.
     key = key.chars.map(&:to_i) if key.is_a?(String)
