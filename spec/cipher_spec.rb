@@ -41,8 +41,8 @@ RSpec.describe Cipher do
       expect(actual).to eq(expected)
     end
 
-    it 'can generate the shift' do
-      actual   = @cipher.generate_shift
+    it 'can generate the shift lookup hash' do
+      actual   = @cipher.shift_lookup
       expected = { A: 3, B: 27, C: 73, D: 20 }
       expect(actual).to eq(expected)
     end

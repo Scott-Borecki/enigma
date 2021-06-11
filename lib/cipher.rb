@@ -15,15 +15,17 @@ class Cipher
     %i[A B C D]
   end
 
-  def generate_shift
-    symbols.zip(@key.zip(@offset).map(&:sum)).to_h
+  def shift_lookup
+    @shift_lookup ||= symbols.zip(@key.zip(@offset).map(&:sum)).to_h
   end
 
   def shift(symbol)
-    alphabet.zip(alphabet.rotate(generate_shift[symbol])).to_h
+    # HACK: Refactor to take two arguments, shift(letter, index) #=> shifted letter
+    alphabet.zip(alphabet.rotate(shift_lookup[symbol])).to_h
   end
 
   def unshift(symbol)
-    alphabet.zip(alphabet.rotate(generate_shift[symbol] * -1)).to_h
+    # HACK: efactor to take two arguments, shift(letter, index) #=> unshifted letter
+    alphabet.zip(alphabet.rotate(shift_lookup[symbol] * -1)).to_h
   end
 end
