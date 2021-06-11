@@ -9,7 +9,7 @@ SimpleCov.start
 
 RSpec.describe Cipher do
   before :each do
-    @cipher = Cipher.new('02715', '040895')
+    @cipher = Cipher.new('040895', '02715')
   end
 
   describe 'Object Creation' do
@@ -18,10 +18,10 @@ RSpec.describe Cipher do
     end
 
     it 'has readable attributes' do
-      key    = [2, 27, 71, 15]
+      keys   = [2, 27, 71, 15]
       date   = '040895'
       offset = [1, 0, 2, 5]
-      expect(@cipher.key).to eq(key)
+      expect(@cipher.keys).to eq(keys)
       expect(@cipher.date).to eq(date)
       expect(@cipher.offset).to eq(offset)
     end

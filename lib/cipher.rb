@@ -1,12 +1,12 @@
 class Cipher
   include Alphabetable
 
-  attr_reader :key,
+  attr_reader :keys,
               :date,
               :offset
 
-  def initialize(key, date)
-    @key      = Key.generate(key)
+  def initialize(date, key)
+    @keys     = Key.generate(key)
     @date     = date
     @offset   = Offset.generate(@date)
   end
@@ -16,7 +16,7 @@ class Cipher
   end
 
   def shift_lookup
-    @shift_lookup ||= positions.zip(@key.zip(@offset).map(&:sum)).to_h
+    @shift_lookup ||= positions.zip(@keys.zip(@offset).map(&:sum)).to_h
   end
 
   def shift(letter, index)
