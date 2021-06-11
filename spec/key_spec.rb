@@ -7,7 +7,13 @@ SimpleCov.start
 
 RSpec.describe Key do
   describe 'Class Methods' do
-    it 'can generate the keys' do
+    it 'can generate the key with a given key' do
+      actual   = Key.generate('02715')
+      expected = [2, 27, 71, 15]
+      expect(actual).to eq(expected)
+    end
+
+    it 'can generate the key without a given key' do
       actual = Key.generate
       expect(actual).to be_a(Array)
       expect(actual.length).to eq(4)
