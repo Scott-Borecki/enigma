@@ -1,4 +1,5 @@
-require './lib/enigma'
+require_relative 'enigma'
+require_relative 'dateable'
 
 encrypted         = File.open(ARGV[0], 'r')
 encrypted_message = encrypted.read

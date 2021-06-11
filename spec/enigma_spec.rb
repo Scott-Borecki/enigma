@@ -1,7 +1,8 @@
-require 'spec_helper'
-require './lib/enigma'
 require 'date'
 require 'simplecov'
+require_relative 'spec_helper'
+require_relative '../lib/enigma'
+
 SimpleCov.start
 
 RSpec.describe Enigma do
@@ -34,7 +35,7 @@ RSpec.describe Enigma do
         expect(actual).to eq(expected)
       end
 
-      it 'can encrypt a message with a key (and today\'s date)' do
+      it "can encrypt a message with a key (and today's date)" do
         allow(@enigma).to receive(:today).and_return("040895")
         actual   = @enigma.encrypt("hello world", "02715")
         expected = {
@@ -81,7 +82,7 @@ RSpec.describe Enigma do
         expect(actual).to eq(expected)
       end
 
-      xit 'can crack a message with today\'s date' do
+      xit "can crack a message with today's date" do
         actual   = @enigma.encrypt("hello world end", "08304", today)
         expected = {
           encryption: "vjqtbeaweqihssi",
