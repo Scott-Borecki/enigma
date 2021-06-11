@@ -6,9 +6,9 @@ class Cipher
               :offset
 
   def initialize(date, key)
-    @keys     = Key.generate(key)
-    @date     = date
-    @offset   = Offset.generate(@date)
+    @keys   = Key.generate(key)
+    @date   = date
+    @offset = Offset.generate(@date)
   end
 
   def positions
