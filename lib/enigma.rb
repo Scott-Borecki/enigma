@@ -18,7 +18,6 @@ class Enigma
     end
     { decryption: decrypted, key: key, date: date }
   end
-
   # def crack(ciphertext, date = today)
   #   # TODO
   # end
