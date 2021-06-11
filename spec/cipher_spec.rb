@@ -51,21 +51,23 @@ RSpec.describe Cipher do
 
     it 'can generate a shift (encryption) pcipher' do
       actual   = @cipher.shift(:A)
-      expected = {'a'=>'d', 'b'=>'e', 'c'=>'f', 'd'=>'g', 'e'=>'h', 'f'=>'i',
-                  'g'=>'j', 'h'=>'k', 'i'=>'l', 'j'=>'m', 'k'=>'n', 'l'=>'o',
-                  'm'=>'p', 'n'=>'q', 'o'=>'r', 'p'=>'s', 'q'=>'t', 'r'=>'u',
-                  's'=>'v', 't'=>'w', 'u'=>'x', 'v'=>'y', 'w'=>'z', 'x'=>' ',
-                  'y'=>'a', 'z'=>'b', ' '=>'c'}
+      expected = { 'a' => 'd', 'b' => 'e', 'c' => 'f', 'd' => 'g', 'e' => 'h',
+                   'f' => 'i', 'g' => 'j', 'h' => 'k', 'i' => 'l', 'j' => 'm',
+                   'k' => 'n', 'l' => 'o', 'm' => 'p', 'n' => 'q', 'o' => 'r',
+                   'p' => 's', 'q' => 't', 'r' => 'u', 's' => 'v', 't' => 'w',
+                   'u' => 'x', 'v' => 'y', 'w' => 'z', 'x' => ' ', 'y' => 'a',
+                   'z' => 'b', ' ' => 'c' }
       expect(actual).to eq(expected)
     end
 
     it 'can generate a unshift (decryption) cipher' do
       actual   = @cipher.unshift(:A)
-      expected = {'a'=>'y', 'b'=>'z', 'c'=>' ', 'd'=>'a', 'e'=>'b', 'f'=>'c',
-                  'g'=>'d', 'h'=>'e', 'i'=>'f', 'j'=>'g', 'k'=>'h', 'l'=>'i',
-                  'm'=>'j', 'n'=>'k', 'o'=>'l', 'p'=>'m', 'q'=>'n', 'r'=>'o',
-                  's'=>'p', 't'=>'q', 'u'=>'r', 'v'=>'s', 'w'=>'t', 'x'=>'u',
-                  'y'=>'v', 'z'=>'w', ' '=>'x'}
+      expected = { 'a' => 'y', 'b' => 'z', 'c' => ' ', 'd' => 'a', 'e' => 'b',
+                   'f' => 'c', 'g' => 'd', 'h' => 'e', 'i' => 'f', 'j' => 'g',
+                   'k' => 'h', 'l' => 'i', 'm' => 'j', 'n' => 'k', 'o' => 'l',
+                   'p' => 'm', 'q' => 'n', 'r' => 'o', 's' => 'p', 't' => 'q',
+                   'u' => 'r', 'v' => 's', 'w' => 't', 'x' => 'u', 'y' => 'v',
+                   'z' => 'w', ' ' => 'x' }
       expect(actual).to eq(expected)
     end
   end
