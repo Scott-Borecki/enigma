@@ -10,7 +10,7 @@ SimpleCov.start
 RSpec.describe Cipher do
   describe 'Object Creation' do
     before :each do
-      @cipher = Cipher.new('hello world', '02715', '040895')
+      @cipher = Cipher.new('02715', '040895')
     end
 
     it 'exists' do
@@ -21,13 +21,11 @@ RSpec.describe Cipher do
       alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                   'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                   'y', 'z', ' ']
-      message  = 'hello world'
       key      = [2, 27, 71, 15]
       date     = '040895'
       offset   = [1, 0, 2, 5]
-      
+
       expect(@cipher.alphabet).to eq(alphabet)
-      expect(@cipher.message).to eq(message)
       expect(@cipher.key).to eq(key)
       expect(@cipher.date).to eq(date)
       expect(@cipher.offset).to eq(offset)
@@ -36,7 +34,7 @@ RSpec.describe Cipher do
 
   describe 'Object Methods' do
     before :each do
-      @cipher = Cipher.new('hello world', '02715', '040895')
+      @cipher = Cipher.new('02715', '040895')
     end
 
     it 'can generate symbols' do

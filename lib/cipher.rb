@@ -2,16 +2,14 @@ class Cipher
   include Dateable
 
   attr_reader :alphabet,
-              :message,
               :key,
               :date,
               :offset
 
-  def initialize(message, key, date)
+  def initialize(key, date)
     @alphabet = ('a'..'z').to_a << ' '
-    @message  = message
     @key      = Key.generate(key)
-    @date     = date || today
+    @date     = date
     @offset   = Offset.generate(@date)
   end
 
