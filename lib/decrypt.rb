@@ -1,5 +1,9 @@
-require_relative 'enigma'
+require_relative 'alphabetable'
+require_relative 'cipher'
 require_relative 'dateable'
+require_relative 'enigma'
+require_relative 'key'
+require_relative 'offset'
 
 encrypted         = File.open(ARGV[0], 'r')
 encrypted_message = encrypted.read

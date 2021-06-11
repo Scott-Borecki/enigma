@@ -1,14 +1,21 @@
-require_relative 'enigma'
+require_relative 'alphabetable'
+require_relative 'cipher'
 require_relative 'dateable'
+require_relative 'enigma'
+require_relative 'key'
+require_relative 'offset'
 
 handle  = File.open(ARGV[0], 'r')
 message = handle.read.downcase
 handle.close
 
 enigma            = Enigma.new
-key               = enigma.keys # perhaps abstract from other class?
 date              = ARGV[2] || enigma.today
-encrypted_message = enigma.encrypt(message, key, date)[:encryption]
+key               = Array.new(5) { rand(0..9) }.join
+encrypted_hash    = enigma.encrypt(message, key, date)
+encrypted_message = encrypted_hash[:encryption]
+key               = encrypted_hash[:key]
+date              = encrypted_hash[:date]
 
 encrypted = File.open(ARGV[1], 'w')
 encrypted.write(encrypted_message)
