@@ -16,7 +16,9 @@ RSpec.describe Enigma do
     end
 
     it 'has readable attributes' do
-      expected = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
+      expected = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                  'y', 'z', ' ']
       expect(@enigma.alphabet).to be_a(Array)
       expect(@enigma.alphabet).to eq(expected)
       expect(@enigma.alphabet.length).to eq(27)
