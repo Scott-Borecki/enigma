@@ -1,5 +1,5 @@
 class Enigma
-  include Alphabetable
+  # include Alphabetable
   include Dateable
 
   def encrypt(message, key, date = today)
