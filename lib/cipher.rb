@@ -11,21 +11,19 @@ class Cipher
     @offset   = Offset.generate(@date)
   end
 
-  def symbols
-    %i[A B C D]
+  def positions
+    [0, 1, 2, 3]
   end
 
   def shift_lookup
-    @shift_lookup ||= symbols.zip(@key.zip(@offset).map(&:sum)).to_h
+    @shift_lookup ||= positions.zip(@key.zip(@offset).map(&:sum)).to_h
   end
 
-  def shift(symbol)
-    # HACK: Refactor to take two arguments, shift(letter, index) #=> shifted letter
-    alphabet.zip(alphabet.rotate(shift_lookup[symbol])).to_h
+  def shift(letter, index)
+    alphabet.zip(alphabet.rotate(shift_lookup[index % 4])).to_h[letter]
   end
 
-  def unshift(symbol)
-    # HACK: efactor to take two arguments, shift(letter, index) #=> unshifted letter
-    alphabet.zip(alphabet.rotate(shift_lookup[symbol] * -1)).to_h
+  def unshift(letter, index)
+    alphabet.zip(alphabet.rotate(shift_lookup[index % 4] * -1)).to_h[letter]
   end
 end
