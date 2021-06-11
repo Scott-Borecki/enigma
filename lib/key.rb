@@ -1,10 +1,10 @@
 class Key
   def self.generate(key)
-    # TODO: This code needs to be refactored.
-    key = key.chars.map(&:to_i)
-    [key[0] * 10 + key[1],
-     key[1] * 10 + key[2],
-     key[2] * 10 + key[3],
-     key[3] * 10 + key[4]]
+    keys = key.chars.map(&:to_i)
+    keys.each_with_index.reduce([]) do |new_keys, (key, i)|
+      j = i + 1
+      new_keys << (keys[i] * 10 + keys[j]) if i < 4
+      new_keys
+    end
   end
 end
