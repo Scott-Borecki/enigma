@@ -72,29 +72,28 @@ class Enigma
   end
 
   def symbols
-    [:A, :B, :C, :D]
-    # @alphabet[0..3].map { |letter| letter.upcase.to_sym }
+    %i( A B C D )
   end
 
   def generate_shift
-    @shift ||= merge_it(@keys, @offsets)
+    @generate_shift ||= merge_it(@keys, @offsets)
   end
 
-  def merge_it(k, o)
-    symbols.zip(sum_values(k, o)).to_h
+  def merge_it(key, offset)
+    symbols.zip(sum_values(key, offset)).to_h
     # h1.merge(h2) { |k, v1, v2| v1 + v2 }
   end
 
-  def sum_values(a1, a2)
+  def sum_values(array1, array2)
     # require "pry"; binding.pry
-    a1.zip(a2).map(&:sum)
+    array1.zip(array2).map(&:sum)
   end
 
   def shift_it(symbol)
-    @alphabet.zip(@alphabet.rotate(@shift[symbol])).to_h
+    @alphabet.zip(@alphabet.rotate(@generate_shift[symbol])).to_h
   end
 
   def unshift_it(symbol)
-    @alphabet.zip(@alphabet.rotate(@shift[symbol] * -1)).to_h
+    @alphabet.zip(@alphabet.rotate(@generate_shift[symbol] * -1)).to_h
   end
 end

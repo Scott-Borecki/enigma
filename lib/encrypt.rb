@@ -1,6 +1,6 @@
 require './lib/enigma'
 
-handle  = File.open(ARGV[0], "r")
+handle  = File.open(ARGV[0], 'r')
 message = handle.read.downcase
 handle.close
 
@@ -9,7 +9,7 @@ key               = enigma.keys # perhaps this will be abstracted from a differe
 date              = ARGV[2] || enigma.today
 encrypted_message = enigma.encrypt(message, key, date)[:encryption]
 
-encrypted = File.open(ARGV[1], "w")
+encrypted = File.open(ARGV[1], 'w')
 encrypted.write(encrypted_message)
 encrypted.close
 
