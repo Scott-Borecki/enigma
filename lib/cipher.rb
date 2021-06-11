@@ -1,13 +1,11 @@
 class Cipher
-  include Dateable
+  include Alphabetable
 
-  attr_reader :alphabet,
-              :key,
+  attr_reader :key,
               :date,
               :offset
 
   def initialize(key, date)
-    @alphabet = ('a'..'z').to_a << ' '
     @key      = Key.generate(key)
     @date     = date
     @offset   = Offset.generate(@date)
