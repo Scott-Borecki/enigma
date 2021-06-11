@@ -8,24 +8,19 @@ require_relative '../lib/offset'
 SimpleCov.start
 
 RSpec.describe Cipher do
-  describe 'Object Creation' do
-    before :each do
-      @cipher = Cipher.new('02715', '040895')
-    end
+  before :each do
+    @cipher = Cipher.new('02715', '040895')
+  end
 
+  describe 'Object Creation' do
     it 'exists' do
       expect(@cipher).to be_an_instance_of(Cipher)
     end
 
     it 'has readable attributes' do
-      alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-                  'y', 'z', ' ']
-      key      = [2, 27, 71, 15]
-      date     = '040895'
-      offset   = [1, 0, 2, 5]
-
-      expect(@cipher.alphabet).to eq(alphabet)
+      key    = [2, 27, 71, 15]
+      date   = '040895'
+      offset = [1, 0, 2, 5]
       expect(@cipher.key).to eq(key)
       expect(@cipher.date).to eq(date)
       expect(@cipher.offset).to eq(offset)
@@ -33,8 +28,11 @@ RSpec.describe Cipher do
   end
 
   describe 'Object Methods' do
-    before :each do
-      @cipher = Cipher.new('02715', '040895')
+    it 'can return the alphabet (plus space)' do
+      alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                  'y', 'z', ' ']
+      expect(@cipher.alphabet).to eq(alphabet)
     end
 
     it 'can generate symbols' do

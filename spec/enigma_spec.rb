@@ -18,6 +18,18 @@ RSpec.describe Enigma do
   end
 
   describe 'Object Methods' do
+    it 'can return the alphabet (plus space)' do
+      alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                  'y', 'z', ' ']
+      expect(@enigma.alphabet).to eq(alphabet)
+    end
+
+    it "can return today's date as a DDMMYY string" do
+      expect(@enigma.today).to be_a(String)
+      expect(@enigma.today.length).to eq(6)
+    end
+
     it 'can encrypt a message with a key and date' do
       actual   = @enigma.encrypt('hello world', '02715', '040895')
       expected = { encryption: 'keder ohulw', key: '02715', date: '040895' }
