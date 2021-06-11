@@ -59,7 +59,7 @@ RSpec.describe Cipher do
       expect(actual).to eq(expected)
 
       allow(@cipher).to receive(:shift).and_return(true)
-      actual   = @cipher.shift_new_letter('d', 3)
+      actual = @cipher.shift_new_letter('d', 3)
       expect(actual).to be true
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Cipher do
       expect(actual).to eq(expected)
 
       allow(@cipher).to receive(:unshift).and_return(true)
-      actual   = @cipher.unshift_new_letter('d', 3)
+      actual = @cipher.unshift_new_letter('d', 3)
       expect(actual).to be true
     end
   end
