@@ -12,7 +12,7 @@ class Cipher
   end
 
   def positions
-    [0, 1, 2, 3]
+    @positions ||= [0, 1, 2, 3]
   end
 
   def shift_lookup
