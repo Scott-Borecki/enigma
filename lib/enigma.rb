@@ -7,8 +7,8 @@ class Enigma
     cipher = Cipher.new(key, date)
     encrypted_message = ''
     message.chars.each_with_index do |letter, index|
-      encrypted_message << letter unless alphabet.include?(letter)
-      encrypted_message << cipher.shift(letter, index)
+      encrypted_message <<
+        (alphabet.include?(letter) ? cipher.shift(letter, index) : letter)
     end
     { encryption: encrypted_message, key: key, date: date }
   end
@@ -18,8 +18,8 @@ class Enigma
     cipher = Cipher.new(key, date)
     decrypted_message = ''
     ciphertext.chars.each_with_index do |letter, index|
-      decrypted_message << letter unless alphabet.include?(letter)
-      decrypted_message << cipher.unshift(letter, index)
+      decrypted_message <<
+        (alphabet.include?(letter) ? cipher.unshift(letter, index) : letter)
     end
     { decryption: decrypted_message, key: key, date: date }
   end
