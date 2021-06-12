@@ -18,7 +18,14 @@ class Enigma
     end
     { decryption: decrypted, key: key, date: date }
   end
-  # def crack(ciphertext, date = today)
-  #   # TODO
-  # end
+
+  def crack(ciphertext, date = today)
+    # FIXME: Development in progress
+    cracker = Cracker.crack(cipehertext, date)
+    cracked = ''
+    ciphertext.chars.each_with_index do |letter, index|
+      cracked << cracker.unshift_new_letter(letter, index)
+    end
+    { decryption: cracked, key: key, date: date }
+  end
 end
