@@ -37,7 +37,7 @@ RSpec.describe Cracker do
       expect(@cracker.alphabet).to eq(alphabet)
     end
 
-    it 'can return a hash with index position  by letter' do
+    it 'can return a hash with index position by letter' do
       expected = { "a" => 0, "b" => 1, "c" => 2, "d" => 3, "e" => 4, "f" => 5,
                    "g" => 6, "h" => 7, "i" => 8, "j" => 9, "k" => 10, "l" => 11,
                    "m" => 12, "n" => 13, "o" => 14, "p" => 15, "q" => 16,
@@ -63,6 +63,52 @@ RSpec.describe Cracker do
 
       actual   = @cracker.letter_position(['h', 's', 's', 'i'])
       expected = [7, 18, 18, 8]
+      expect(actual).to eq(expected)
+    end
+
+    it 'can return the shift values' do
+      require "pry"; binding.pry
+      actual   = @cracker.shift_values
+      expected = [19, 13, 22, 22]
+      expect(actual).to eq(expected)
+    end
+
+    it 'can generate the shift lookup hash' do
+      actual   = @cracker.shift_lookup
+      expected = {3=>19, 0=>13, 1=>22, 2=>22}
+      expect(actual).to eq(expected)
+    end
+
+    it 'can generate a shift (decryption) cipher' do
+      actual   = @cracker.shift('h', 3)
+      expected = ' '
+      expect(actual).to eq(expected)
+      actual   = @cracker.shift('s', 0)
+      expected = 'e'
+      expect(actual).to eq(expected)
+      actual   = @cracker.shift('s', 1)
+      expected = 'n'
+      expect(actual).to eq(expected)
+      actual   = @cracker.shift('i', 2)
+      expected = 'd'
+      expect(actual).to eq(expected)
+    end
+
+    it 'can return an shifted letter' do
+      actual   = @cracker.shift_new_letter('$', 3)
+      expected = '$'
+      expect(actual).to eq(expected)
+
+      allow(@cracker).to receive(:shift).and_return(true)
+      actual = @cracker.shift_new_letter('d', 3)
+      expect(actual).to be true
+    end
+
+    it 'can return the difference of the shift and offset' do
+      allow(@cracker).to receive(:shift_values).and_return([19, 13, 22, 22])
+      allow(@cracker).to receive(:offset).and_return([6, 3, 2, 4])
+      actual   = @cracker.offset_key_sum
+      expected = [13, 10, 20, 18]  # [13, 37, 74, 45] '13745'
       expect(actual).to eq(expected)
     end
   end
