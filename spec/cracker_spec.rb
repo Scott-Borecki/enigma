@@ -67,7 +67,6 @@ RSpec.describe Cracker do
     end
 
     it 'can return the shift values' do
-      require "pry"; binding.pry
       actual   = @cracker.shift_values
       expected = [19, 13, 22, 22]
       expect(actual).to eq(expected)
