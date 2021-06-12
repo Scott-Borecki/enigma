@@ -46,24 +46,25 @@ RSpec.describe Enigma do
       expect(actual).to eq(expected)
     end
 
-    # xit 'can crack a message with a date' do
-    #   actual   = @enigma.encrypt('hello world end', '08304', '291018')
-    #   expected = { encryption: 'vjqtbeaweqihssi', key: '08304', date: '291018' }
-    #   expect(actual).to eq(expected)
-    #
-    #   actual   = @enigma.crack('keder ohulw', '02715', '040895')
-    #   expected = { decryption: 'hello world', date: '040895', key: '02715' }
-    #   expect(actual).to eq(expected)
-    # end
-    #
-    # xit "can crack a message with today's date" do
-    #   actual   = @enigma.encrypt('hello world end', '08304', today)
-    #   expected = { encryption: 'vjqtbeaweqihssi', key: '08304', date: '291018' }
-    #   expect(actual).to eq(expected)
-    #
-    #   actual   = @enigma.crack('vjqtbeaweqihssi')
-    #   expected = { decryption: 'hello world end', date: today, key: '08304' }
-    #   expect(actual).to eq(expected)
-    # end
+    it 'can crack a message with a date' do
+      actual   = @enigma.encrypt('hello world end', '08304', '291018')
+      expected = { encryption: 'vjqtbeaweqihssi', key: '08304', date: '291018' }
+      expect(actual).to eq(expected)
+
+      actual   = @enigma.crack('vjqtbeaweqihssi', '291018')
+      expected = { decryption: 'hello world end', date: '291018', key: '08304' }
+      expect(actual).to eq(expected)
+    end
+
+    it "can crack a message with today's date" do
+      allow(@enigma).to receive(:today).and_return('291018')
+      actual   = @enigma.encrypt('hello world end', '08304', today)
+      expected = { encryption: 'vjqtbeaweqihssi', key: '08304', date: '291018' }
+      expect(actual).to eq(expected)
+
+      actual   = @enigma.crack('vjqtbeaweqihssi')
+      expected = { decryption: 'hello world end', date: '291018', key: '08304' }
+      expect(actual).to eq(expected)
+    end
   end
 end
