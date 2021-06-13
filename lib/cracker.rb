@@ -17,7 +17,7 @@ class Cracker
   end
 
   def ciphertext_end
-    ciphertext[-4..-1].chars
+    ciphertext.chomp[-4..-1].chars
   end
 
   def known_end
