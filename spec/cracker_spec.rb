@@ -18,11 +18,9 @@ RSpec.describe Cracker do
     end
 
     it 'has readable attributes' do
-      keys       = ''
       ciphertext = 'vjqtbeaweqihssi'
       date       = '291018'
       offset     = [6, 3, 2, 4]
-      expect(@cracker.keys).to eq(keys)
       expect(@cracker.ciphertext).to eq(ciphertext)
       expect(@cracker.date).to eq(date)
       expect(@cracker.offset).to eq(offset)
@@ -47,12 +45,12 @@ RSpec.describe Cracker do
     end
 
     it 'can return the last four letters of the ciphertext' do
-      actual   = @cracker.last_four_ciphertext
+      actual   = @cracker.ciphertext_end
       expected = ['h', 's', 's', 'i']
       expect(actual).to eq(expected)
     end
 
-    it 'can return the known end of message' do
+    it 'can return the known last four letters of decrypted message' do
       expect(@cracker.known_end).to eq([' ', 'e', 'n', 'd'])
     end
 
@@ -68,47 +66,78 @@ RSpec.describe Cracker do
 
     it 'can return the shift values' do
       actual   = @cracker.shift_values
-      expected = [19, 13, 22, 22]
+      expected = [14, 5, 5, 8]
       expect(actual).to eq(expected)
     end
 
     it 'can generate the shift lookup hash' do
       actual   = @cracker.shift_lookup
-      expected = {3=>19, 0=>13, 1=>22, 2=>22}
+      expected = { 0=>14, 1=>5, 2=>5, 3=>8 }
       expect(actual).to eq(expected)
     end
 
     it 'can generate a shift (decryption) cipher' do
-      actual   = @cracker.shift('h', 3)
-      expected = ' '
-      expect(actual).to eq(expected)
-      actual   = @cracker.shift('s', 0)
+      actual   = @cracker.unshift('s', 0)
       expected = 'e'
       expect(actual).to eq(expected)
-      actual   = @cracker.shift('s', 1)
+
+      actual   = @cracker.unshift('s', 1)
       expected = 'n'
       expect(actual).to eq(expected)
-      actual   = @cracker.shift('i', 2)
+
+      actual   = @cracker.unshift('i', 2)
       expected = 'd'
+      expect(actual).to eq(expected)
+
+      actual   = @cracker.unshift('h', 3)
+      expected = ' '
       expect(actual).to eq(expected)
     end
 
     it 'can return an shifted letter' do
-      actual   = @cracker.shift_new_letter('$', 3)
+      actual   = @cracker.unshift_new_letter('$', 3)
       expected = '$'
       expect(actual).to eq(expected)
 
-      allow(@cracker).to receive(:shift).and_return(true)
-      actual = @cracker.shift_new_letter('d', 3)
+      allow(@cracker).to receive(:unshift).and_return(true)
+      actual = @cracker.unshift_new_letter('d', 3)
       expect(actual).to be true
     end
 
     it 'can return the difference of the shift and offset' do
-      allow(@cracker).to receive(:shift_values).and_return([19, 13, 22, 22])
+      allow(@cracker).to receive(:shift_values).and_return([14, 5, 5, 8])
       allow(@cracker).to receive(:offset).and_return([6, 3, 2, 4])
       actual   = @cracker.offset_key_sum
-      expected = [13, 10, 20, 18]  # [13, 37, 74, 45] '13745'
+      expected = [8, 2, 3, 4]
       expect(actual).to eq(expected)
+    end
+
+    it 'can return the possibile combinations of the offset key difference' do
+      allow(@cracker).to receive(:offset_key_sum).and_return([8, 2, 3, 4])
+      actual   = @cracker.offset_key_sum_combos
+      expected = [[8, 35, 62, 89], [2, 29, 56, 83], [3, 30, 57, 84],
+                  [4, 31, 58, 85]]
+      expect(actual).to eq(expected)
+    end
+
+    it 'can return the modified difference of the shift and offset' do
+      modified = [[8, 35, 62, 89], [2, 29, 56, 83], [3, 30, 57, 84],
+                  [4, 31, 58, 85]]
+      allow(@cracker).to receive(:offset_key_sum_combos).and_return(modified)
+      actual   = @cracker.offset_key_sum_modified
+      expected = [8, 83, 30, 4]
+      expect(actual).to eq(expected)
+    end
+
+    it 'can return the cracked key' do
+      allow(@cracker).to receive(:offset_key_sum).and_return([13, 37, 74, 45])
+      expect(@cracker.cracked_key).to eq('13745')
+
+      allow(@cracker).to receive(:offset_key_sum).and_return([3, 30, 4,45])
+      expect(@cracker.cracked_key).to eq('03045')
+
+      allow(@cracker).to receive(:offset_key_sum).and_return([13, 37, 70, 5])
+      expect(@cracker.cracked_key).to eq('13705')
     end
   end
 end

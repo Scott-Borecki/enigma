@@ -1,3 +1,7 @@
+require_relative 'cipher'
+require_relative 'cracker'
+require_relative 'dateable'
+
 class Enigma
   include Dateable
 
@@ -20,13 +24,11 @@ class Enigma
   end
 
   def crack(ciphertext, date = today)
-    # FIXME: Development in progress. Shift works, but doesn't return key.
-    #        Test needs stubbing for date = today
     cracker = Cracker.new(ciphertext, date)
     cracked = ''
     ciphertext.chars.each_with_index do |letter, index|
-      cracked << cracker.shift_new_letter(letter, index)
+      cracked << cracker.unshift_new_letter(letter, index)
     end
-    { decryption: cracked, key: cracker.keys, date: date }
+    { decryption: cracked, key: cracker.cracked_key, date: date }
   end
 end

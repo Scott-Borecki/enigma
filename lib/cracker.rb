@@ -1,20 +1,22 @@
+require_relative 'alphabetable'
+require_relative 'offset'
+require_relative 'positionable'
+
 class Cracker
   include Alphabetable
   include Positionable
 
-  attr_reader :keys,
-              :ciphertext,
+  attr_reader :ciphertext,
               :date,
               :offset
 
   def initialize(ciphertext, date)
-    @keys       = ''
     @ciphertext = ciphertext
     @date       = date
     @offset     = Offset.generate(@date)
   end
 
-  def last_four_ciphertext
+  def ciphertext_end
     ciphertext[-4..-1].chars
   end
 
@@ -28,33 +30,56 @@ class Cracker
 
   def shift_values
     @shift_values ||=
-      letter_position(known_end).zip(letter_position(last_four_ciphertext)
+      letter_position(ciphertext_end).zip(letter_position(known_end)
         .map(&:-@)).map(&:sum).map do |value|
           value.negative? ? value + 27 : value
-        end
+        end.rotate(4 - ciphertext.length % 4)
   end
 
   def offset_key_sum
     shift_values.zip(offset.map(&:-@)).map(&:sum)
   end
 
-  # def keys
-  #   @key = "#{offset_key_sum[0]}#{offset_key_sum[0]}#{offset_key_sum[0]}#{offset_key_sum[0]}#{offset_key_sum[0]}"
-  # end
+  def offset_key_sum_combos
+    offset_key_sum.map do |number|
+      if number > 18
+        [number, number + 27, number + 27 * 2]
+      else
+        [number, number + 27, number + 27 * 2, number + 27 * 3]
+      end
+    end
+  end
 
-  def positions_rotated
-    positions.rotate(ciphertext.length % 4)
+  def offset_key_sum_modified
+    array = []
+    offset_key_sum_combos.each_with_index do |nums, i|
+      j = i + 1
+      if i == 0
+        array << nums.find do |num|
+          offset_key_sum_combos[j].any? { |num2| num2 / 10 == num % 10 }
+        end
+      else
+        array << nums.find do |num|
+          array[i - 1] % 10 == num / 10
+        end
+      end
+    end
+    array
+  end
+
+  def cracked_key
+    "#{offset_key_sum_modified[0].to_s.rjust(2, "0")}#{offset_key_sum_modified[1] % 10}#{offset_key_sum_modified[3].to_s.rjust(2, "0")}"
   end
 
   def shift_lookup
-    @shift_lookup ||= positions_rotated.zip(shift_values).to_h
+    @shift_lookup ||= positions.zip(shift_values).to_h
   end
 
-  def shift(letter, index)
-    alphabet.zip(alphabet.rotate(shift_lookup[index % 4])).to_h[letter]
+  def unshift(letter, index)
+    alphabet.zip(alphabet.rotate(shift_lookup[index % 4] * -1)).to_h[letter]
   end
 
-  def shift_new_letter(letter, index)
-    alphabet.include?(letter) ? shift(letter, index) : letter
+  def unshift_new_letter(letter, index)
+    alphabet.include?(letter) ? unshift(letter, index) : letter
   end
 end
