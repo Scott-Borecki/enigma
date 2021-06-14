@@ -38,13 +38,13 @@ class Cracker
         end.rotate(4 - ciphertext.length % 4)
   end
 
-  def offset_key_sum
-    @offset_key_sum ||= shift_values.zip(offset.map(&:-@)).map(&:sum)
+  def shift_diff
+    @shift_diff ||= shift_values.zip(offset.map(&:-@)).map(&:sum)
   end
 
-  def offset_key_sum_combos
+  def shift_diff_combos
     # HACK: Figure out a better way to to this. Maybe until loop?
-    @offset_key_sum_combos ||= offset_key_sum.map do |number|
+    @shift_diff_combos ||= shift_diff.map do |number|
       if number > 18
         [number, number + 27, number + 27 * 2]
       else
@@ -53,20 +53,20 @@ class Cracker
     end
   end
 
-  def offset_key_sum_modified
+  def shift_diff_keys
     # HACK: Figure out way to use the return of the conditional for variable
     #       assignment and comparison.
-    # HACK: Assignment Branch Condition size for offset_key_sum_modified is too
+    # HACK: Assignment Branch Condition size for shift_diff_keys is too
     #       high.
     array = []
-    offset_key_sum_combos.each_with_index do |nums, i|
+    shift_diff_combos.each_with_index do |nums, i|
       if i.zero?
         array << nums.find do |num0|
-          offset_key_sum_combos[i + 1].any? do |num1|
+          shift_diff_combos[i + 1].any? do |num1|
             if num0 % 10 == num1 / 10
-              offset_key_sum_combos[i + 2].any? do |num2|
+              shift_diff_combos[i + 2].any? do |num2|
                 if num1 % 10 == num2 / 10
-                  offset_key_sum_combos[i + 3].any? do |num3|
+                  shift_diff_combos[i + 3].any? do |num3|
                     num2 % 10 == num3 / 10
                   end
                 end
@@ -84,7 +84,7 @@ class Cracker
   end
 
   def keys
-    @keys ||= offset_key_sum_modified
+    @keys ||= shift_diff_keys
   end
 
   def key
