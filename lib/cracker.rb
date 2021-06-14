@@ -13,7 +13,7 @@ class Cracker
               :key
 
   def initialize(ciphertext, date)
-    @ciphertext = ciphertext.chomp
+    @ciphertext = ciphertext
     @date       = date
     @offset     = Offset.generate(@date)
     @key        = KeyCracker.new(shift_values, offset).key

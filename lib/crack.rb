@@ -9,7 +9,7 @@ require_relative 'key_cracker'
 require_relative 'offset'
 
 encrypted         = File.open(ARGV[0], 'r')
-encrypted_message = encrypted.read
+encrypted_message = encrypted.read.downcase.chomp
 encrypted.close
 
 enigma            = Enigma.new
