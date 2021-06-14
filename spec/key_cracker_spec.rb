@@ -71,6 +71,26 @@ RSpec.describe KeyCracker do
       expect(actual).to eq(expected)
     end
 
+    it 'can crack the first element of the key' do
+      combos = [[8, 35, 62, 89], [2, 29, 56, 83], [3, 30, 57, 84],
+                [4, 31, 58, 85]]
+      nums   = [8, 35, 62, 89]
+      i      = 0
+      allow(@key_cracker1).to receive(:shift_diff_combos).and_return(combos)
+      actual   = @key_cracker1.shift_0(nums, i)
+      expected = 8
+      expect(actual).to eq(expected)
+    end
+
+    it 'can crack the remaining elements of key' do
+      nums  = [2, 29, 56, 83]
+      array = [8]
+      i     = 0
+      actual   = @key_cracker1.shift_123(nums, array, i)
+      expected = 83
+      expect(actual).to eq(expected)
+    end
+
     it 'can return the cracked key' do
       allow(@key_cracker1).to receive(:keys)
         .and_return([13, 37, 74, 45])
