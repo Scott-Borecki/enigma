@@ -1,3 +1,5 @@
+require_relative 'modules/alphabetable'
+
 class KeyCracker
   include Alphabetable
 

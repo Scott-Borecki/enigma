@@ -1,6 +1,6 @@
+require_relative 'modules/dateable'
 require_relative 'cipher'
 require_relative 'cracker'
-require_relative 'dateable'
 
 class Enigma
   include Dateable

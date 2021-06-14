@@ -1,7 +1,7 @@
-require_relative '../lib/alphabetable'
-require_relative '../lib/dateable'
-require_relative '../lib/positionable'
-require_relative '../lib/shiftable'
+require_relative '../lib/modules/alphabetable'
+require_relative '../lib/modules/dateable'
+require_relative '../lib/modules/positionable'
+require_relative '../lib/modules/shiftable'
 
 RSpec.configure do |config|
   config.include Dateable, Alphabetable, Positionable, Shiftable

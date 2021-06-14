@@ -1,11 +1,11 @@
-require_relative 'alphabetable'
+require_relative 'modules/alphabetable'
+require_relative 'modules/dateable'
+require_relative 'modules/positionable'
+require_relative 'modules/shiftable'
 require_relative 'cipher'
-require_relative 'dateable'
 require_relative 'enigma'
 require_relative 'key'
 require_relative 'offset'
-require_relative 'positionable'
-require_relative 'shiftable'
 
 encrypted         = File.open(ARGV[0], 'r')
 encrypted_message = encrypted.read

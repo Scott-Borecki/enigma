@@ -1,11 +1,12 @@
-require_relative 'alphabetable'
+require_relative 'modules/alphabetable'
+require_relative 'modules/dateable'
+require_relative 'modules/positionable'
+require_relative 'modules/shiftable'
 require_relative 'cipher'
-require_relative 'dateable'
 require_relative 'enigma'
 require_relative 'key'
 require_relative 'offset'
-require_relative 'positionable'
-require_relative 'shiftable'
+
 
 handle  = File.open(ARGV[0], 'r')
 message = handle.read.downcase
@@ -13,7 +14,7 @@ handle.close
 
 enigma            = Enigma.new
 date              = ARGV[2] || enigma.today
-key               = Array.new(5) { rand(0..9) }.join
+key               = Array.new(5) { rand(0..9) }.join # generate random number and convert into string, pad with zeros
 encrypted_hash    = enigma.encrypt(message, key, date)
 encrypted_message = encrypted_hash[:encryption]
 key               = encrypted_hash[:key]
