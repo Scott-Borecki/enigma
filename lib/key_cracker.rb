@@ -1,4 +1,6 @@
 class KeyCracker
+  include Alphabetable
+
   attr_reader :shift_values,
               :offset
 
@@ -13,11 +15,12 @@ class KeyCracker
 
   def shift_diff_combos
     # HACK: Figure out a better way to to this. Maybe until loop?
-    @shift_diff_combos ||= shift_diff.map do |number|
-      if number > 18
-        [number, number + 27, number + 27 * 2]
+    @shift_diff_combos ||= shift_diff.map do |num|
+      if num > 99 % alphabet.length
+        [num, num + alphabet.length, num + alphabet.length * 2]
       else
-        [number, number + 27, number + 27 * 2, number + 27 * 3]
+        [num, num + alphabet.length, num + alphabet.length * 2,
+         num + alphabet.length * 3]
       end
     end
   end
