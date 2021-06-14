@@ -38,6 +38,6 @@ class Cracker
   end
 
   def positive_shifts(array)
-    array.map { |value| value.negative? ? value + 27 : value }
+    array.map { |value| value.negative? ? value + alphabet.length : value }
   end
 end
