@@ -29,6 +29,7 @@ class Cracker
   end
 
   def shift_values
+    # HACK: Assignment Branch Condition size for shift_values is too high.
     @shift_values ||=
       letter_position(ciphertext_end).zip(letter_position(known_end)
         .map(&:-@)).map(&:sum).map do |value|
@@ -41,6 +42,7 @@ class Cracker
   end
 
   def offset_key_sum_combos
+    # HACK: Figure out a better way to to this. Maybe until loop?
     @offset_key_sum_combos ||= offset_key_sum.map do |number|
       if number > 18
         [number, number + 27, number + 27 * 2]
@@ -51,9 +53,15 @@ class Cracker
   end
 
   def offset_key_sum_modified
+    # HACK: Figure out way to use memoization so this doesn't need to run every
+    #       time it is called.  Maybe @keys instance variable?
+    # HACK: Figure out way to use the return of the conditional for variable
+    #       assignment and comparison.
+    # HACK: Assignment Branch Condition size for offset_key_sum_modified is too
+    #       high.
     array = []
     offset_key_sum_combos.each_with_index do |nums, i|
-      if i == 0
+      if i.zero?
         array << nums.find do |num0|
           offset_key_sum_combos[i + 1].any? do |num1|
             if num0 % 10 == num1 / 10
@@ -77,7 +85,9 @@ class Cracker
   end
 
   def cracked_key
-    "#{offset_key_sum_modified[0].to_s.rjust(2, "0")}#{offset_key_sum_modified[1] % 10}#{offset_key_sum_modified[3].to_s.rjust(2, "0")}"
+    "#{offset_key_sum_modified[0].to_s.rjust(2, '0')}"\
+    "#{offset_key_sum_modified[1] % 10}"\
+    "#{offset_key_sum_modified[3].to_s.rjust(2, '0')}"
   end
 
   def shift_lookup

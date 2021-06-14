@@ -45,21 +45,21 @@ RSpec.describe Cracker do
     end
 
     it 'can return a hash with index position by letter' do
-      expected = { "a" => 0, "b" => 1, "c" => 2, "d" => 3, "e" => 4, "f" => 5,
-                   "g" => 6, "h" => 7, "i" => 8, "j" => 9, "k" => 10, "l" => 11,
-                   "m" => 12, "n" => 13, "o" => 14, "p" => 15, "q" => 16,
-                   "r" => 17, "s" => 18, "t" => 19, "u" => 20, "v" => 21,
-                   "w" => 22, "x" => 23, "y" => 24, "z" => 25, " " => 26 }
+      expected = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5,
+                   'g' => 6, 'h' => 7, 'i' => 8, 'j' => 9, 'k' => 10, 'l' => 11,
+                   'm' => 12, 'n' => 13, 'o' => 14, 'p' => 15, 'q' => 16,
+                   'r' => 17, 's' => 18, 't' => 19, 'u' => 20, 'v' => 21,
+                   'w' => 22, 'x' => 23, 'y' => 24, 'z' => 25, ' ' => 26 }
       expect(@cracker.alphabet_hash).to eq(expected)
     end
 
     it 'can return the last four letters of the ciphertext' do
       actual   = @cracker.ciphertext_end
-      expected = ['h', 's', 's', 'i']
+      expected = %w[h s s i]
       expect(actual).to eq(expected)
 
       actual   = @cracker1.ciphertext_end
-      expected = ['f', 't', 'k', 'l']
+      expected = %w[f t k l]
       expect(actual).to eq(expected)
     end
 
@@ -72,7 +72,7 @@ RSpec.describe Cracker do
       expected = [26, 4, 13, 3]
       expect(actual).to eq(expected)
 
-      actual   = @cracker.letter_position(['h', 's', 's', 'i'])
+      actual   = @cracker.letter_position(%w[h s s i])
       expected = [7, 18, 18, 8]
       expect(actual).to eq(expected)
     end
@@ -89,11 +89,11 @@ RSpec.describe Cracker do
 
     it 'can generate the shift lookup hash' do
       actual   = @cracker.shift_lookup
-      expected = { 0=>14, 1=>5, 2=>5, 3=>8 }
+      expected = { 0 => 14, 1 => 5, 2 => 5, 3 => 8 }
       expect(actual).to eq(expected)
 
       actual   = @cracker1.shift_lookup
-      expected = { 0=>15, 1=>24, 2=>8, 3=>6 }
+      expected = { 0 => 15, 1 => 24, 2 => 8, 3 => 6 }
       expect(actual).to eq(expected)
     end
 
@@ -178,7 +178,7 @@ RSpec.describe Cracker do
       expected = [64, 45, 58, 86]
       expect(actual).to eq(expected)
 
-      combos   = [[19, 46, 73], [12, 39, 66, 93], [6, 33, 60, 87],
+      combos = [[19, 46, 73], [12, 39, 66, 93], [6, 33, 60, 87],
                   [10, 37, 64, 91]]
       allow(@cracker2).to receive(:offset_key_sum_combos).and_return(combos)
       actual   = @cracker2.offset_key_sum_modified
@@ -187,13 +187,16 @@ RSpec.describe Cracker do
     end
 
     it 'can return the cracked key' do
-      allow(@cracker).to receive(:offset_key_sum_modified).and_return([13, 37, 74, 45])
+      allow(@cracker).to receive(:offset_key_sum_modified)
+        .and_return([13, 37, 74, 45])
       expect(@cracker.cracked_key).to eq('13745')
 
-      allow(@cracker).to receive(:offset_key_sum_modified).and_return([3, 30, 4,45])
+      allow(@cracker).to receive(:offset_key_sum_modified)
+        .and_return([3, 30, 4,45])
       expect(@cracker.cracked_key).to eq('03045')
 
-      allow(@cracker).to receive(:offset_key_sum_modified).and_return([13, 37, 70, 5])
+      allow(@cracker).to receive(:offset_key_sum_modified)
+        .and_return([13, 37, 70, 5])
       expect(@cracker.cracked_key).to eq('13705')
     end
   end
