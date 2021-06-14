@@ -32,9 +32,12 @@ class Cracker
   def shift_values
     # HACK: Assignment Branch Condition size for shift_values is too high.
     @shift_values ||=
-      letter_position(ciphertext_end).zip(letter_position(known_end)
-        .map(&:-@)).map(&:sum).map do |value|
-          value.negative? ? value + 27 : value
-        end.rotate(4 - ciphertext.length % 4)
+      positive_shifts(letter_position(ciphertext_end)
+        .zip(letter_position(known_end).map(&:-@)).map(&:sum))
+          .rotate(4 - ciphertext.length % 4)
+  end
+
+  def positive_shifts(array)
+    array.map { |value| value.negative? ? value + 27 : value }
   end
 end

@@ -95,6 +95,13 @@ RSpec.describe Cracker do
       expect(actual).to eq(expected)
     end
 
+    it 'can return positive shift values from negative shift values' do
+      array    = [15, -12, 4, -7]
+      actual   = @cracker.positive_shifts(array)
+      expected = [15, 15, 4, 20]
+      expect(actual).to eq(expected)
+    end
+
     it 'can generate the shift lookup hash' do
       actual   = @cracker.shift_lookup
       expected = { 0 => 14, 1 => 5, 2 => 5, 3 => 8 }
