@@ -25,10 +25,6 @@ class Cracker
     ' end'.chars
   end
 
-  def letter_position(letters)
-    letters.map { |letter| alphabet_hash[letter] }
-  end
-
   def shift_values
     # HACK: Assignment Branch Condition size for shift_values is too high.
     @shift_values ||=

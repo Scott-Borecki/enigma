@@ -10,4 +10,8 @@ module Alphabetable
         hash.update(letter => index)
       end
   end
+
+  def letter_position(letters)
+    letters.map { |letter| alphabet_hash[letter] }
+  end
 end
