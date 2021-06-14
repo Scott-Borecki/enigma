@@ -179,7 +179,7 @@ RSpec.describe Cracker do
       expect(actual).to eq(expected)
 
       combos = [[19, 46, 73], [12, 39, 66, 93], [6, 33, 60, 87],
-                  [10, 37, 64, 91]]
+                [10, 37, 64, 91]]
       allow(@cracker2).to receive(:offset_key_sum_combos).and_return(combos)
       actual   = @cracker2.offset_key_sum_modified
       expected = [19, 93, 33, 37]
@@ -192,7 +192,7 @@ RSpec.describe Cracker do
       expect(@cracker.cracked_key).to eq('13745')
 
       allow(@cracker).to receive(:offset_key_sum_modified)
-        .and_return([3, 30, 4,45])
+        .and_return([3, 30, 4, 45])
       expect(@cracker.cracked_key).to eq('03045')
 
       allow(@cracker).to receive(:offset_key_sum_modified)
