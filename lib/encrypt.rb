@@ -14,7 +14,7 @@ handle.close
 
 enigma            = Enigma.new
 date              = ARGV[2] || enigma.today
-key               = Array.new(5) { rand(0..9) }.join # generate random number and convert into string, pad with zeros
+key               = rand(99999).to_s.rjust(5, '0')
 encrypted_hash    = enigma.encrypt(message, key, date)
 encrypted_message = encrypted_hash[:encryption]
 key               = encrypted_hash[:key]
