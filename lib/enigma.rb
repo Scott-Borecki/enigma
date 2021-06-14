@@ -29,6 +29,6 @@ class Enigma
     ciphertext.chars.each_with_index do |letter, index|
       cracked << cracker.unshift_new_letter(letter, index)
     end
-    { decryption: cracked, key: cracker.cracked_key, date: date }
+    { decryption: cracked, key: cracker.key, date: date }
   end
 end

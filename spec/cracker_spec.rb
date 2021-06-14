@@ -33,6 +33,13 @@ RSpec.describe Cracker do
       expect(@cracker1.ciphertext).to eq(ciphertext)
       expect(@cracker1.date).to eq(date)
       expect(@cracker1.offset).to eq(offset)
+
+      ciphertext = 'ewvwlrfzocnkben'
+      date       = '140621'
+      offset     = [5, 6, 4, 1]
+      expect(@cracker2.ciphertext).to eq(ciphertext)
+      expect(@cracker2.date).to eq(date)
+      expect(@cracker2.offset).to eq(offset)
     end
   end
 
@@ -187,17 +194,17 @@ RSpec.describe Cracker do
     end
 
     it 'can return the cracked key' do
-      allow(@cracker).to receive(:offset_key_sum_modified)
+      allow(@cracker).to receive(:keys)
         .and_return([13, 37, 74, 45])
-      expect(@cracker.cracked_key).to eq('13745')
+      expect(@cracker.key).to eq('13745')
 
-      allow(@cracker).to receive(:offset_key_sum_modified)
+      allow(@cracker).to receive(:keys)
         .and_return([3, 30, 4, 45])
-      expect(@cracker.cracked_key).to eq('03045')
+      expect(@cracker.key).to eq('03045')
 
-      allow(@cracker).to receive(:offset_key_sum_modified)
+      allow(@cracker).to receive(:keys)
         .and_return([13, 37, 70, 5])
-      expect(@cracker.cracked_key).to eq('13705')
+      expect(@cracker.key).to eq('13705')
     end
   end
 end

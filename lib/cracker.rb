@@ -8,7 +8,8 @@ class Cracker
 
   attr_reader :ciphertext,
               :date,
-              :offset
+              :offset,
+              :keys
 
   def initialize(ciphertext, date)
     @ciphertext = ciphertext.chomp
@@ -53,8 +54,6 @@ class Cracker
   end
 
   def offset_key_sum_modified
-    # HACK: Figure out way to use memoization so this doesn't need to run every
-    #       time it is called.  Maybe @keys instance variable?
     # HACK: Figure out way to use the return of the conditional for variable
     #       assignment and comparison.
     # HACK: Assignment Branch Condition size for offset_key_sum_modified is too
@@ -81,13 +80,17 @@ class Cracker
         end
       end
     end
-    array
+    @keys = array
   end
 
-  def cracked_key
-    "#{offset_key_sum_modified[0].to_s.rjust(2, '0')}"\
-    "#{offset_key_sum_modified[1] % 10}"\
-    "#{offset_key_sum_modified[3].to_s.rjust(2, '0')}"
+  def keys
+    @keys ||= offset_key_sum_modified
+  end
+
+  def key
+    "#{keys[0].to_s.rjust(2, '0')}"\
+    "#{keys[1] % 10}"\
+    "#{keys[3].to_s.rjust(2, '0')}"
   end
 
   def shift_lookup
