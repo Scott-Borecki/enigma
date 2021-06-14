@@ -6,6 +6,7 @@ require_relative 'enigma'
 require_relative 'key'
 require_relative 'offset'
 require_relative 'positionable'
+require_relative 'shiftable'
 
 encrypted         = File.open(ARGV[0], 'r')
 encrypted_message = encrypted.read

@@ -1,10 +1,12 @@
 require_relative 'alphabetable'
 require_relative 'offset'
 require_relative 'positionable'
+require_relative 'shiftable'
 
 class Cracker
   include Alphabetable
   include Positionable
+  include Shiftable
 
   attr_reader :ciphertext,
               :date,
@@ -87,17 +89,5 @@ class Cracker
     "#{keys[0].to_s.rjust(2, '0')}"\
     "#{keys[1] % 10}"\
     "#{keys[3].to_s.rjust(2, '0')}"
-  end
-
-  def shift_lookup
-    @shift_lookup ||= positions.zip(shift_values).to_h
-  end
-
-  def unshift(letter, index)
-    alphabet.zip(alphabet.rotate(shift_lookup[index % 4] * -1)).to_h[letter]
-  end
-
-  def unshift_new_letter(letter, index)
-    alphabet.include?(letter) ? unshift(letter, index) : letter
   end
 end
