@@ -1,9 +1,6 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/offset'
-
-SimpleCov.start
 
 RSpec.describe Offset do
   describe 'Class Methods' do

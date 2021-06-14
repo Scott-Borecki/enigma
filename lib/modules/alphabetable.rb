@@ -1,4 +1,4 @@
-# This module shares the behavior to return the alphabet (plus space) array
+# This module shares the behaviors related to the alphabet (plus space) array
 module Alphabetable
   def alphabet
     @alphabet ||= ('a'..'z').to_a << ' '
@@ -9,5 +9,9 @@ module Alphabetable
       alphabet.each_with_index.reduce({}) do |hash, (letter, index)|
         hash.update(letter => index)
       end
+  end
+
+  def letter_position(letters)
+    letters.map { |letter| alphabet_hash[letter] }
   end
 end

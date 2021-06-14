@@ -1,6 +1,6 @@
+require_relative 'modules/dateable'
 require_relative 'cipher'
 require_relative 'cracker'
-require_relative 'dateable'
 
 class Enigma
   include Dateable
@@ -18,7 +18,7 @@ class Enigma
     cipher = Cipher.new(date, key)
     decrypted = ''
     ciphertext.chars.each_with_index do |letter, index|
-      decrypted << cipher.unshift_new_letter(letter, index)
+      decrypted << cipher.shift_new_letter(letter, index, -1)
     end
     { decryption: decrypted, key: key, date: date }
   end
@@ -27,8 +27,8 @@ class Enigma
     cracker = Cracker.new(ciphertext, date)
     cracked = ''
     ciphertext.chars.each_with_index do |letter, index|
-      cracked << cracker.unshift_new_letter(letter, index)
+      cracked << cracker.shift_new_letter(letter, index, -1)
     end
-    { decryption: cracked, key: cracker.cracked_key, date: date }
+    { decryption: cracked, key: cracker.key, date: date }
   end
 end

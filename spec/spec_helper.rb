@@ -1,7 +1,10 @@
-require_relative '../lib/alphabetable'
-require_relative '../lib/dateable'
-require_relative '../lib/positionable'
+require 'simplecov'
+require_relative '../lib/modules/alphabetable'
+require_relative '../lib/modules/dateable'
+require_relative '../lib/modules/shiftable'
+
+SimpleCov.start
 
 RSpec.configure do |config|
-  config.include Dateable, Alphabetable, Positionable
+  config.include Dateable, Alphabetable, Shiftable
 end

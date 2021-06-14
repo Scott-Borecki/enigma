@@ -1,9 +1,6 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/key'
-
-SimpleCov.start
 
 RSpec.describe Key do
   describe 'Class Methods' do

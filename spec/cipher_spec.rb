@@ -1,11 +1,8 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/cipher'
 require_relative '../lib/key'
 require_relative '../lib/offset'
-
-SimpleCov.start
 
 RSpec.describe Cipher do
   before :each do
@@ -48,34 +45,34 @@ RSpec.describe Cipher do
     end
 
     it 'can generate a shift (encryption) cipher' do
-      actual   = @cipher.shift('a', 0)
+      actual   = @cipher.shift('a', 0, 1)
       expected = 'd'
       expect(actual).to eq(expected)
     end
 
     it 'can return a shifted letter' do
-      actual   = @cipher.shift_new_letter('$', 3)
+      actual   = @cipher.shift_new_letter('$', 3, 1)
       expected = '$'
       expect(actual).to eq(expected)
 
       allow(@cipher).to receive(:shift).and_return(true)
-      actual = @cipher.shift_new_letter('d', 3)
+      actual = @cipher.shift_new_letter('d', 3, 1)
       expect(actual).to be true
     end
 
     it 'can generate a unshift (decryption) cipher' do
-      actual   = @cipher.unshift('a', 0)
+      actual   = @cipher.shift('a', 0, -1)
       expected = 'y'
       expect(actual).to eq(expected)
     end
 
     it 'can return an unshifted letter' do
-      actual   = @cipher.unshift_new_letter('$', 3)
+      actual   = @cipher.shift_new_letter('$', 3, -1)
       expected = '$'
       expect(actual).to eq(expected)
 
-      allow(@cipher).to receive(:unshift).and_return(true)
-      actual = @cipher.unshift_new_letter('d', 3)
+      allow(@cipher).to receive(:shift).and_return(true)
+      actual = @cipher.shift_new_letter('d', 3, -1)
       expect(actual).to be true
     end
   end
