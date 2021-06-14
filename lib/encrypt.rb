@@ -7,7 +7,6 @@ require_relative 'enigma'
 require_relative 'key'
 require_relative 'offset'
 
-
 handle  = File.open(ARGV[0], 'r')
 message = handle.read.downcase
 handle.close
