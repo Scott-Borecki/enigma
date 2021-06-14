@@ -23,4 +23,4 @@ encrypted = File.open(ARGV[1], 'w')
 encrypted.write(encrypted_message)
 encrypted.close
 
-puts "Created #{File.basename(ARGV[1])} with the key #{key} and date #{date}"
+puts "Created '#{File.basename(ARGV[1])}' with the key #{key} and date #{date}"

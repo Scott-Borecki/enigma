@@ -22,4 +22,5 @@ decrypted = File.open(ARGV[1], 'w')
 decrypted.write(decrypted_message)
 decrypted.close
 
-puts "Created #{File.basename(ARGV[1])} with the cracked key #{key} and date #{date}"
+puts "Created '#{File.basename(ARGV[1])}' with the cracked key #{key} and date"\
+     " #{date}"
