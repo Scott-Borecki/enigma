@@ -16,7 +16,6 @@ class KeyCracker
   end
 
   def shift_diff_combos
-    # HACK: Figure out a better way to to this. Maybe until loop?
     @shift_diff_combos ||= shift_diff.map do |num|
       if num > 99 % alphabet.length
         [num, num + alphabet.length, num + alphabet.length * 2]
@@ -36,8 +35,6 @@ class KeyCracker
   end
 
   def shift_0(nums, i)
-    # HACK: Assignment Branch Condition size for shift_diff_keys is too
-    #       high.
     nums.find do |num0|
       shift_diff_combos[i + 1].any? do |num1|
         if num0 % 10 == num1 / 10

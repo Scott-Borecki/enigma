@@ -28,7 +28,6 @@ class Cracker
   end
 
   def shift_values
-    # HACK: Assignment Branch Condition size for shift_values is too high.
     @shift_values ||=
       positive_shifts(letter_position(ciphertext_end)
         .zip(letter_position(known_end).map(&:-@)).map(&:sum))
