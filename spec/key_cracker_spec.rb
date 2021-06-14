@@ -1,9 +1,6 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/key_cracker'
-
-SimpleCov.start
 
 RSpec.describe KeyCracker do
   before :each do

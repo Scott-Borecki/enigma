@@ -1,11 +1,8 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/cipher'
 require_relative '../lib/key'
 require_relative '../lib/offset'
-
-SimpleCov.start
 
 RSpec.describe Cipher do
   before :each do

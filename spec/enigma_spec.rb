@@ -1,13 +1,10 @@
 require 'date'
-require 'simplecov'
 require_relative 'spec_helper'
 require_relative '../lib/cipher'
 require_relative '../lib/cracker'
 require_relative '../lib/enigma'
 require_relative '../lib/key'
 require_relative '../lib/offset'
-
-SimpleCov.start
 
 RSpec.describe Enigma do
   before :each do
