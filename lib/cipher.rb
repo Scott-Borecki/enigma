@@ -1,12 +1,10 @@
 require_relative 'modules/alphabetable'
-require_relative 'modules/positionable'
 require_relative 'modules/shiftable'
 require_relative 'key'
 require_relative 'offset'
 
 class Cipher
   include Alphabetable
-  include Positionable
   include Shiftable
 
   attr_reader :keys,

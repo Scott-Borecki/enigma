@@ -1,6 +1,5 @@
 require_relative 'modules/alphabetable'
 require_relative 'modules/dateable'
-require_relative 'modules/positionable'
 require_relative 'modules/shiftable'
 require_relative 'cipher'
 require_relative 'enigma'

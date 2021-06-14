@@ -1,5 +1,9 @@
 # This module shares the letter shifting behavior
 module Shiftable
+  def positions
+    @positions ||= [0, 1, 2, 3]
+  end
+
   def shift_lookup
     @shift_lookup ||= positions.zip(shift_values).to_h
   end
