@@ -11,13 +11,13 @@ class Cracker
               :offset
 
   def initialize(ciphertext, date)
-    @ciphertext = ciphertext
+    @ciphertext = ciphertext.chomp
     @date       = date
     @offset     = Offset.generate(@date)
   end
 
   def ciphertext_end
-    ciphertext.chomp[-4..-1].chars
+    ciphertext[-4..-1].chars
   end
 
   def known_end
@@ -37,11 +37,11 @@ class Cracker
   end
 
   def offset_key_sum
-    shift_values.zip(offset.map(&:-@)).map(&:sum)
+    @offset_key_sum ||= shift_values.zip(offset.map(&:-@)).map(&:sum)
   end
 
   def offset_key_sum_combos
-    offset_key_sum.map do |number|
+    @offset_key_sum_combos ||= offset_key_sum.map do |number|
       if number > 18
         [number, number + 27, number + 27 * 2]
       else
@@ -53,10 +53,19 @@ class Cracker
   def offset_key_sum_modified
     array = []
     offset_key_sum_combos.each_with_index do |nums, i|
-      j = i + 1
       if i == 0
-        array << nums.find do |num|
-          offset_key_sum_combos[j].any? { |num2| num2 / 10 == num % 10 }
+        array << nums.find do |num0|
+          offset_key_sum_combos[i + 1].any? do |num1|
+            if num0 % 10 == num1 / 10
+              offset_key_sum_combos[i + 2].any? do |num2|
+                if num1 % 10 == num2 / 10
+                  offset_key_sum_combos[i + 3].any? do |num3|
+                    num2 % 10 == num3 / 10
+                  end
+                end
+              end
+            end
+          end
         end
       else
         array << nums.find do |num|
