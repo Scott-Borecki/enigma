@@ -17,12 +17,13 @@ class KeyCracker
 
   def shift_diff_combos
     @shift_diff_combos ||= shift_diff.map do |num|
-      if num > 99 % alphabet.length
-        [num, num + alphabet.length, num + alphabet.length * 2]
-      else
-        [num, num + alphabet.length, num + alphabet.length * 2,
-         num + alphabet.length * 3]
+      counter = 0
+      array = []
+      until (counter - 1) * alphabet.length + num >= 99 - alphabet.length
+        array << num + alphabet.length * counter
+        counter += 1
       end
+      array
     end
   end
 
