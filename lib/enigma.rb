@@ -1,3 +1,7 @@
+require_relative 'cipher'
+require_relative 'cracker'
+require_relative 'dateable'
+
 class Enigma
   include Dateable
 
@@ -18,7 +22,13 @@ class Enigma
     end
     { decryption: decrypted, key: key, date: date }
   end
-  # def crack(ciphertext, date = today)
-  #   # TODO
-  # end
+
+  def crack(ciphertext, date = today)
+    cracker = Cracker.new(ciphertext, date)
+    cracked = ''
+    ciphertext.chars.each_with_index do |letter, index|
+      cracked << cracker.unshift_new_letter(letter, index)
+    end
+    { decryption: cracked, key: cracker.cracked_key, date: date }
+  end
 end
