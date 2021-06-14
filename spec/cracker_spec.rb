@@ -113,34 +113,34 @@ RSpec.describe Cracker do
     end
 
     it 'can generate an unshift (decryption) cipher' do
-      actual   = @cracker.unshift('s', 0)
+      actual   = @cracker.shift('s', 0, -1)
       expected = 'e'
       expect(actual).to eq(expected)
 
-      actual   = @cracker.unshift('s', 1)
+      actual   = @cracker.shift('s', 1, -1)
       expected = 'n'
       expect(actual).to eq(expected)
 
-      actual   = @cracker.unshift('i', 2)
+      actual   = @cracker.shift('i', 2, -1)
       expected = 'd'
       expect(actual).to eq(expected)
 
-      actual   = @cracker.unshift('h', 3)
+      actual   = @cracker.shift('h', 3, -1)
       expected = ' '
       expect(actual).to eq(expected)
 
-      actual   = @cracker1.unshift('f', 3)
+      actual   = @cracker1.shift('f', 3, -1)
       expected = ' '
       expect(actual).to eq(expected)
     end
 
     it 'can return an unshifted letter' do
-      actual   = @cracker.unshift_new_letter('$', 3)
+      actual   = @cracker.shift_new_letter('$', 3, -1)
       expected = '$'
       expect(actual).to eq(expected)
 
-      allow(@cracker).to receive(:unshift).and_return(true)
-      actual = @cracker.unshift_new_letter('d', 3)
+      allow(@cracker).to receive(:shift).and_return(true)
+      actual = @cracker.shift_new_letter('d', 3, -1)
       expect(actual).to be true
     end
   end
