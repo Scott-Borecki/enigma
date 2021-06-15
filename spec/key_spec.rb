@@ -4,6 +4,12 @@ require_relative '../lib/key'
 
 RSpec.describe Key do
   describe 'Class Methods' do
+    it 'can randomize a new key' do
+      actual = Key.randomize
+      expect(actual).to be_an_instance_of(String)
+      expect(actual.length).to eq(5)
+    end
+
     it 'can generate the key with a given key' do
       actual   = Key.generate('02715')
       expected = [2, 27, 71, 15]
