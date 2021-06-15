@@ -53,7 +53,7 @@ The project home page and requirements can be found [here](https://backend.turin
 - Atom
 - GitHub
 
-## <ins>Getting Started</ins>
+## Getting Started
 
 **Fork this repository:** [Enigma](https://github.com/Scott-Borecki/enigma)
 
