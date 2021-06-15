@@ -6,8 +6,9 @@
 [![Issues][issues-shield]][issues-url]
 
 ![The Enigma Machine and Alan Turing](https://i.dailymail.co.uk/i/pix/2018/01/07/10/47D85C4400000578-0-image-a-9_1515321060322.jpg)
+(Image Source: [Daily Mail](https://www.dailymail.co.uk/news/article-5243337/Alan-Turings-code-breaking-machines-hidden-away-war.html))
 
-Enigma Machine (Source: [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine) 🤷‍♂️)
+**Enigma Machine** (Source: [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine) 🤷‍♂️):
 
 > The Enigma machine is a cipher device developed and used in the early- to mid-20th century to protect commercial, diplomatic, and military communication. It was employed extensively by Nazi Germany during World War II, in all branches of the German military. The Germans believed, erroneously, that use of the Enigma machine enabled them to communicate securely and thus enjoy a huge advantage in World War II. The Enigma machine was considered to be so secure that even the most top-secret messages were enciphered on its electrical circuits.
 
