@@ -1,11 +1,13 @@
 require_relative 'modules/alphabetable'
 require_relative 'modules/shiftable'
+require_relative 'modules/positionable'
 require_relative 'key_cracker'
 require_relative 'offset'
 
 class Cracker
   include Alphabetable
   include Shiftable
+  include Positionable
 
   attr_reader :ciphertext,
               :date,
@@ -20,7 +22,7 @@ class Cracker
   end
 
   def ciphertext_end
-    ciphertext[-4..-1].chars
+    ciphertext.chars.last(4)
   end
 
   def known_end
@@ -31,10 +33,10 @@ class Cracker
     @shift_values ||=
       positive_shifts(letter_position(ciphertext_end)
         .zip(letter_position(known_end).map(&:-@)).map(&:sum))
-        .rotate(4 - ciphertext.length % 4)
+        .rotate(num_positions - ciphertext.length % num_positions)
   end
 
   def positive_shifts(array)
-    array.map { |value| value.negative? ? value + alphabet.length : value }
+    array.map { |value| value.negative? ? value + num_letters : value }
   end
 end
