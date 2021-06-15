@@ -6,8 +6,8 @@ require_relative 'offset'
 
 class Cracker
   include Alphabetable
-  include Shiftable
   include Positionable
+  include Shiftable
 
   attr_reader :ciphertext,
               :date,
