@@ -6,7 +6,7 @@ class Enigma
   include Dateable
 
   def encrypt(message, key, date = today)
-    cipher = Cipher.new(date, key)
+    cipher    = Cipher.new(date, key)
     encrypted = ''
     message.chars.each_with_index do |letter, index|
       encrypted << cipher.shift_new_letter(letter, index)
@@ -15,7 +15,7 @@ class Enigma
   end
 
   def decrypt(ciphertext, key, date)
-    cipher = Cipher.new(date, key)
+    cipher    = Cipher.new(date, key)
     decrypted = ''
     ciphertext.chars.each_with_index do |letter, index|
       decrypted << cipher.shift_new_letter(letter, index, -1)

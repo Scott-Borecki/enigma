@@ -80,9 +80,9 @@ RSpec.describe KeyCracker do
     end
 
     it 'can crack the remaining elements of key' do
-      nums  = [2, 29, 56, 83]
-      array = [8]
-      i     = 0
+      nums     = [2, 29, 56, 83]
+      array    = [8]
+      i        = 0
       actual   = @key_cracker1.shift_123(nums, array, i)
       expected = 83
       expect(actual).to eq(expected)

@@ -58,7 +58,7 @@ RSpec.describe Enigma do
 
     it "can crack a message with today's date" do
       allow(@enigma).to receive(:today).and_return('291018')
-      today = '291018'
+      today    = '291018'
       actual   = @enigma.encrypt('hello world end', '08304', today)
       expected = { encryption: 'vjqtbeaweqihssi', key: '08304', date: '291018' }
       expect(actual).to eq(expected)

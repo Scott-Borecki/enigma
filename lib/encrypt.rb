@@ -12,7 +12,7 @@ handle.close
 
 enigma            = Enigma.new
 date              = ARGV[2] || enigma.today
-key               = rand(99_999).to_s.rjust(5, '0')
+key               = Key.randomize
 encrypted_hash    = enigma.encrypt(message, key, date)
 encrypted_message = encrypted_hash[:encryption]
 key               = encrypted_hash[:key]
