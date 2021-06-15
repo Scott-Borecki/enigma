@@ -14,4 +14,8 @@ module Alphabetable
   def letter_position(letters)
     letters.map { |letter| alphabet_hash[letter] }
   end
+
+  def num_letters
+    alphabet.length
+  end
 end
