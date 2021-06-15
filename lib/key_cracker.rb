@@ -19,7 +19,7 @@ class KeyCracker
     @shift_diff_combos ||=
       shift_diff.map do |num|
         counter = 0
-        array = []
+        array   = []
         until (counter - 1) * alphabet.length + num >= 99 - alphabet.length
           array << num + alphabet.length * counter
           counter += 1
