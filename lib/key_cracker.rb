@@ -20,8 +20,8 @@ class KeyCracker
       shift_diff.map do |num|
         counter = 0
         array   = []
-        until (counter - 1) * alphabet.length + num >= 99 - alphabet.length
-          array << num + alphabet.length * counter
+        while num + num_letters * counter <= 99
+          array << num + num_letters * counter
           counter += 1
         end
         array

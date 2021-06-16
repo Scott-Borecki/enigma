@@ -1,4 +1,3 @@
-# This module shares the behaviors related to the alphabet (plus space) array
 module Alphabetable
   def alphabet
     @alphabet ||= ('a'..'z').to_a << ' '
@@ -13,5 +12,9 @@ module Alphabetable
 
   def letter_position(letters)
     letters.map { |letter| alphabet_hash[letter] }
+  end
+
+  def num_letters
+    alphabet.length
   end
 end
