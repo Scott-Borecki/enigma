@@ -5,7 +5,7 @@ module Shiftable
 
   def shift(letter, index, sign)
     alphabet.zip(alphabet.rotate(shift_lookup[index % num_positions] * sign))
-      .to_h[letter]
+            .to_h[letter]
   end
 
   def shift_new_letter(letter, index, sign = 1)

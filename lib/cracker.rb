@@ -33,7 +33,7 @@ class Cracker
     @shift_values ||=
       positive_shifts(letter_position(ciphertext_end)
         .zip(letter_position(known_end).map(&:-@)).map(&:sum))
-        .rotate(num_positions - ciphertext.length % num_positions)
+      .rotate(num_positions - ciphertext.length % num_positions)
   end
 
   def positive_shifts(array)
